@@ -4,7 +4,7 @@ from pathlib import Path
 from PIL import Image
 
 
-def nrrd_to_png(nrrd_path: Path, imgs_out_path: Path):
+def nii_to_png(nrrd_path: Path, imgs_out_path: Path):
     # read nrrd file
     data, _ = nrrd.read(str(nrrd_path))
     # rotate the image by 90 degrees so it is horizontal

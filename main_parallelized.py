@@ -1,4 +1,4 @@
-from nrrd_to_png import nrrd_to_png as unroll_nrrd
+from nii_to_png import nii_to_png as unroll_nrrd
 from pathlib import Path
 import os
 import ctypes

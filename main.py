@@ -1,4 +1,4 @@
-from nrrd_to_png import nrrd_to_png as unroll_nrrd
+from nii_to_png import nii_to_png as unroll_nrrd
 from pathlib import Path
 import os
 import ctypes
@@ -9,8 +9,8 @@ if __name__ == '__main__':
     # no screensaver
     # ctypes.windll.kernel32.SetThreadExecutionState(0x80000002)
 
-    dataset_src = Path("C:/Users/user/cancer_imaging_archive/us")
-    dataset_dst = Path("C:/Users/user/cancer_imaging_archive/preprocessed_for_training/us")
+    dataset_src = Path("C:/Users/ML/Desktop/ProstatexJacopoNII")
+    dataset_dst = Path("C:/Users/ML/Desktop/unrolled_ProstatexJacopoNII")
     
     count = 0
     for path, dirs, files in os.walk(dataset_src):
@@ -23,15 +23,15 @@ if __name__ == '__main__':
                 print(dst_folder)
             except OSError as e:
                 raise e
-            # in this new folder we will unroll the prostate and segmentation nrrds
-            for file in [f for f in files if f.startswith("US") or f.startswith("Prostate")]:
-                nrrd = Path.joinpath(Path(path), Path(file))
-                unroll_nrrd(nrrd, dst_folder, is_mask=(False if file.startswith("US") else True))
+            # in this new folder we will unroll the prostate and segmentation niis
+            for file in [f for f in files if f.startswith("MRI") or f.startswith("Prostate")]:
+                nii = Path.joinpath(Path(path), Path(file))
+                unroll_nrrd(nii, dst_folder)
                 count += 1
-                print("\t{} was converted".format(file))
+                print(f"\t{file} was converted")
                 
     # reset screensaver
     # ctypes.windll.kernel32.SetThreadExecutionState(0x80000000)
     
-    print("{} nrrds was converted.".format(count))
+    print(f"{count} niis were converted.")
 
