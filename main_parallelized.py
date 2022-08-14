@@ -4,6 +4,9 @@ import os
 import multiprocessing
 from multiprocessing import Pool
 
+dataset_src = Path("C:/Users/ML/Desktop/ProstatexJacopoNII")
+dataset_dst = Path("C:/Users/ML/Desktop/unrolled_ProstatexJacopoNII")
+
 
 def gen_single(nii):
     niidir = nii.parent
@@ -14,15 +17,12 @@ def gen_single(nii):
 
 
 if __name__ == '__main__':
-    dataset_src = Path("C:/Users/ML/Desktop/ProstatexJacopoNII")
     assert dataset_src.exists()
-    dataset_dst = Path("C:/Users/ML/Desktop/unrolled_ProstatexJacopoNII")
     niifiles = []
     for dirpath, _, files in os.walk(dataset_src):
         for f in files:
             if f.endswith(".nii") and (f.startswith("Prostate") or f.startswith("MRI")):
                 niifiles.append(Path(dirpath) / f)
-    gen_single(niifiles[0])
     with Pool(multiprocessing.cpu_count()) as pool:
         print("Processing...")
         pool.map(gen_single, niifiles)
