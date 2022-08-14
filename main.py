@@ -1,4 +1,4 @@
-from nii_to_png import nii_to_png as unroll_nrrd
+from nii_to_png import nii_to_png as unroll_nii
 from pathlib import Path
 import os
 import ctypes
@@ -25,8 +25,8 @@ if __name__ == '__main__':
                 raise e
             # in this new folder we will unroll the prostate and segmentation niis
             for file in [f for f in files if f.startswith("MRI") or f.startswith("Prostate")]:
-                nii = Path.joinpath(Path(path), Path(file))
-                unroll_nrrd(nii, dst_folder)
+                nii = Path(path) / Path(file)
+                unroll_nii(nii, dst_folder)
                 count += 1
                 print(f"\t{file} was converted")
                 
